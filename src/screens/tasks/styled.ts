@@ -83,7 +83,7 @@ export const useStyles = (currentTheme: ColorSchemeName) => {
     containerTask: {
       width: '90%',
       height: 130,
-      marginBottom: 15,
+      marginVertical: 15,
       marginHorizontal: 'auto',
       borderRadius: 20,
       backgroundColor:
@@ -100,7 +100,7 @@ export const useStyles = (currentTheme: ColorSchemeName) => {
       alignItems: 'center',
     },
 
-    iconRadio: {
+    iconCheck: {
       color:
         currentTheme === 'light'
           ? theme.light.colors.textColor
@@ -123,8 +123,20 @@ export const useStyles = (currentTheme: ColorSchemeName) => {
       alignItems: 'center',
     },
 
+    button: {
+      width: 44,
+      height: 44,
+      marginHorizontal: 10,
+      borderRadius: 999,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor:
+        currentTheme === 'light'
+          ? theme.light.colors.bgColorOne
+          : theme.dark.colors.bgColorOne,
+    },
+
     iconEdit: {
-      marginHorizontal: 30,
       color:
         currentTheme === 'light'
           ? theme.light.colors.textColor

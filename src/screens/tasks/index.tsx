@@ -1,6 +1,13 @@
 import React from 'react';
-import { View, Text, TextInput, FlatList, useColorScheme } from 'react-native';
-import { AntDesign, EvilIcons, Fontisto, Feather } from '@expo/vector-icons';
+import {
+  View,
+  Text,
+  TextInput,
+  FlatList,
+  Pressable,
+  useColorScheme,
+} from 'react-native';
+import { AntDesign, EvilIcons, MaterialIcons } from '@expo/vector-icons';
 
 import SafeAreaScreenComponent from '@/src/components/safe-area-screen';
 
@@ -74,23 +81,41 @@ export default function TasksScreen() {
         <FlatList
           data={tasks}
           renderItem={({ item }) => (
-            <View style={[styles.containerTask, styles.shadow]}>
+            <View style={styles.containerTask}>
               <View style={styles.containerTaskUp}>
-                <Fontisto
-                  name={
-                    item.status === 'inProgress'
-                      ? 'radio-btn-passive'
-                      : 'radio-btn-active'
-                  }
-                  size={22}
-                  color={styles.iconRadio.color}
-                />
+                {item.status === 'inProgress' ? (
+                  <MaterialIcons
+                    name="radio-button-unchecked"
+                    size={28}
+                    color={styles.iconCheck.color}
+                  />
+                ) : (
+                  <MaterialIcons
+                    name="check-circle"
+                    size={28}
+                    color={styles.iconCheck.color}
+                  />
+                )}
+
                 <Text style={styles.textTask}>{item.task}</Text>
               </View>
 
               <View style={styles.containerTaskDown}>
-                <Feather name="edit-2" size={22} style={styles.iconEdit} />
-                <Feather name="trash" size={22} style={styles.iconTrash} />
+                <Pressable style={styles.button}>
+                  <MaterialIcons
+                    name="edit"
+                    size={24}
+                    style={styles.iconEdit}
+                  />
+                </Pressable>
+
+                <Pressable style={styles.button}>
+                  <MaterialIcons
+                    name="delete"
+                    size={24}
+                    style={styles.iconTrash}
+                  />
+                </Pressable>
               </View>
             </View>
           )}
