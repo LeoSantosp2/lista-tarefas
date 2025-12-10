@@ -1,7 +1,7 @@
 export default {
   colors: {
-    bgColorOne: '#FFFFFF',
-    bgColorTwo: '#F2F2F2',
+    bgColorOne: '#F2F2F2',
+    bgColorTwo: '#FFFFFF',
     textColor: '#121212',
     gray: '#ccc',
     red: '#F20530',
