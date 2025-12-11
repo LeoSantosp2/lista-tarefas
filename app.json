@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "lista-tarefas",
-    "slug": "lista-tarefas",
-    "version": "1.0.0",
+    "slug": "list-tasks",
+    "version": "1.4.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "listatarefas",
@@ -40,9 +40,25 @@
         }
       ]
     ],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "611b0335-6cbb-4406-8650-2b2c46b960f0"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/611b0335-6cbb-4406-8650-2b2c46b960f0"
     }
   }
 }
