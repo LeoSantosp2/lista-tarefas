@@ -1,10 +1,14 @@
 import React from 'react';
 import { Stack } from 'expo-router';
 
+import Providers from '@/src/providers';
+
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-    </Stack>
+    <Providers>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
+    </Providers>
   );
 }

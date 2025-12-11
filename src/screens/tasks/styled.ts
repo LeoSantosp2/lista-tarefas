@@ -35,34 +35,39 @@ export const useStyles = (currentTheme: ColorSchemeName) => {
     containerInput: {
       width: '100%',
       height: '10%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-around',
     },
 
     input: {
-      width: '90%',
+      width: '80%',
       height: 44,
-      marginHorizontal: 'auto',
       paddingHorizontal: 10,
       borderRadius: 20,
       flexDirection: 'row',
       alignItems: 'center',
+      fontSize: theme.light.font.sizes.text,
       backgroundColor:
         currentTheme === 'light'
           ? theme.light.colors.bgColorTwo
           : theme.dark.colors.bgColorTwo,
-    },
-
-    textInput: {
-      width: '90%',
-      height: '100%',
-      fontSize: theme.light.font.sizes.text,
       color:
         currentTheme === 'light'
           ? theme.light.colors.textColor
           : theme.dark.colors.textColor,
     },
 
-    iconSearch: {
-      color: theme.light.colors.gray,
+    buttonAddTask: {
+      width: 44,
+      height: 44,
+      borderRadius: 999,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor:
+        currentTheme === 'light'
+          ? theme.light.colors.bgColorTwo
+          : theme.dark.colors.bgColorTwo,
     },
 
     containerStatus: {
@@ -145,6 +150,23 @@ export const useStyles = (currentTheme: ColorSchemeName) => {
 
     iconTrash: {
       color: theme.light.colors.red,
+    },
+
+    inputEdit: {
+      width: '60%',
+      height: 44,
+      marginLeft: 10,
+      paddingHorizontal: 10,
+      borderRadius: 20,
+      fontSize: theme.light.font.sizes.text,
+      backgroundColor:
+        currentTheme === 'light'
+          ? theme.light.colors.bgColorOne
+          : theme.dark.colors.bgColorOne,
+      color:
+        currentTheme === 'light'
+          ? theme.light.colors.textColor
+          : theme.dark.colors.textColor,
     },
 
     shadow: {

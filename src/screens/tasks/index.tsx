@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import uuid from 'react-native-uuid';
 import {
   View,
   Text,
@@ -7,115 +8,180 @@ import {
   Pressable,
   useColorScheme,
 } from 'react-native';
-import { AntDesign, EvilIcons, MaterialIcons } from '@expo/vector-icons';
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import SafeAreaScreenComponent from '@/src/components/safe-area-screen';
 
+import { getTasks, addTask, updatedTask, deleteTask } from '@/src/services/api';
+
+import { TaskProps } from '@/src/types/task-props';
+
 import { useStyles } from './styled';
 
-const tasks = [
-  {
-    id: '1',
-    task: 'Tarefa 01',
-    status: 'inProgress',
-  },
-
-  {
-    id: '2',
-    task: 'Tarefa 02',
-    status: 'inProgress',
-  },
-
-  {
-    id: '3',
-    task: 'Tarefa 03',
-    status: 'complete',
-  },
-
-  {
-    id: '4',
-    task: 'Tarefa 04',
-    status: 'inProgress',
-  },
-
-  {
-    id: '5',
-    task: 'Tarefa 05',
-    status: 'complete',
-  },
-];
-
 export default function TasksScreen() {
+  const [task, setTask] = useState('');
+  const [editTask, setEditTask] = useState('');
+  const [newTask, setNewTask] = useState('');
+
   const currentTheme = useColorScheme();
+  const queryClient = useQueryClient();
 
   const { styles } = useStyles(currentTheme);
+  const { data } = useQuery({
+    queryKey: ['@tasks'],
+    queryFn: getTasks,
+  });
+
+  const handleAddTask = async () => {
+    await addTask({ id: uuid.v4(), task, isCompleted: false });
+
+    setTask('');
+
+    queryClient.invalidateQueries({ queryKey: ['@tasks'] });
+  };
+
+  const handleUpdateTask = async (task: TaskProps) => {
+    await updatedTask(task);
+
+    setEditTask('');
+    setNewTask('');
+
+    queryClient.invalidateQueries({ queryKey: ['@tasks'] });
+  };
+
+  const handleDeleteTask = async (id: string) => {
+    await deleteTask(id);
+
+    queryClient.invalidateQueries({ queryKey: ['@tasks'] });
+  };
 
   return (
     <SafeAreaScreenComponent>
       <View style={styles.screen}>
         <View style={styles.header}>
           <Text style={styles.title}>Tarefas</Text>
-
-          <AntDesign name="plus" size={32} color={styles.iconPlus.color} />
         </View>
 
         <View style={styles.containerInput}>
-          <View style={styles.input}>
-            <EvilIcons
-              name="search"
-              size={22}
-              color={styles.iconSearch.color}
-            />
-            <TextInput
-              placeholder="Buscar"
-              placeholderTextColor="#CCC"
-              style={styles.textInput}
-            />
-          </View>
+          <TextInput
+            value={task}
+            onChangeText={setTask}
+            placeholder="Adicionar Tarefa"
+            placeholderTextColor="#CCC"
+            style={styles.input}
+          />
+
+          <Pressable style={styles.buttonAddTask} onPress={handleAddTask}>
+            <AntDesign name="plus" size={28} color={styles.iconPlus.color} />
+          </Pressable>
         </View>
 
         <View style={styles.containerStatus}>
-          <Text style={styles.textStatus}>2 de 5 tarefas finalizadas.</Text>
+          <Text style={styles.textStatus}>
+            {data?.filter((task) => task.isCompleted === true).length} de{' '}
+            {data?.length} tarefas finalizadas.
+          </Text>
         </View>
 
         <FlatList
-          data={tasks}
+          data={data}
           renderItem={({ item }) => (
             <View style={styles.containerTask}>
               <View style={styles.containerTaskUp}>
-                {item.status === 'inProgress' ? (
-                  <MaterialIcons
-                    name="radio-button-unchecked"
-                    size={28}
-                    color={styles.iconCheck.color}
-                  />
-                ) : (
+                {item.isCompleted ? (
                   <MaterialIcons
                     name="check-circle"
                     size={28}
                     color={styles.iconCheck.color}
+                    onPress={() =>
+                      handleUpdateTask({
+                        id: item.id,
+                        task: item.task,
+                        isCompleted: false,
+                      })
+                    }
+                  />
+                ) : (
+                  <MaterialIcons
+                    name="radio-button-unchecked"
+                    size={28}
+                    color={styles.iconCheck.color}
+                    onPress={() =>
+                      handleUpdateTask({
+                        id: item.id,
+                        task: item.task,
+                        isCompleted: true,
+                      })
+                    }
                   />
                 )}
 
-                <Text style={styles.textTask}>{item.task}</Text>
+                {editTask === item.id ? (
+                  <TextInput
+                    value={newTask}
+                    style={styles.inputEdit}
+                    onChangeText={setNewTask}
+                  />
+                ) : (
+                  <Text style={styles.textTask}>{item.task}</Text>
+                )}
               </View>
 
               <View style={styles.containerTaskDown}>
-                <Pressable style={styles.button}>
-                  <MaterialIcons
-                    name="edit"
-                    size={24}
-                    style={styles.iconEdit}
-                  />
-                </Pressable>
+                {editTask === item.id ? (
+                  <Pressable
+                    style={styles.button}
+                    onPress={() =>
+                      handleUpdateTask({
+                        id: item.id,
+                        task: newTask,
+                        isCompleted: item.isCompleted,
+                      })
+                    }
+                  >
+                    <MaterialIcons
+                      name="check"
+                      size={24}
+                      style={styles.iconEdit}
+                    />
+                  </Pressable>
+                ) : (
+                  <Pressable
+                    style={styles.button}
+                    onPress={() => setEditTask(item.id)}
+                  >
+                    <MaterialIcons
+                      name="edit"
+                      size={24}
+                      style={styles.iconEdit}
+                    />
+                  </Pressable>
+                )}
 
-                <Pressable style={styles.button}>
-                  <MaterialIcons
-                    name="delete"
-                    size={24}
-                    style={styles.iconTrash}
-                  />
-                </Pressable>
+                {editTask === item.id ? (
+                  <Pressable
+                    style={styles.button}
+                    onPress={() => setEditTask('')}
+                  >
+                    <MaterialIcons
+                      name="close"
+                      size={24}
+                      style={styles.iconTrash}
+                    />
+                  </Pressable>
+                ) : (
+                  <Pressable
+                    style={styles.button}
+                    onPress={() => handleDeleteTask(item.id)}
+                  >
+                    <MaterialIcons
+                      name="delete"
+                      size={24}
+                      style={styles.iconTrash}
+                    />
+                  </Pressable>
+                )}
               </View>
             </View>
           )}

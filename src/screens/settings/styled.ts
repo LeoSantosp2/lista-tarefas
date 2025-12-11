@@ -29,19 +29,47 @@ export const useStyles = (currentTheme: ColorSchemeName) => {
     },
 
     options: {
-      width: '100%',
+      width: '90%',
+      marginHorizontal: 'auto',
+      paddingHorizontal: 10,
+      borderRadius: 20,
+      backgroundColor:
+        currentTheme === 'light'
+          ? theme.light.colors.bgColorTwo
+          : theme.dark.colors.bgColorTwo,
     },
 
     option: {
-      width: '90%',
+      width: '100%',
       height: 44,
-      marginTop: 15,
-      marginHorizontal: 'auto',
       flexDirection: 'row',
       justifyContent: 'space-between',
+      alignItems: 'center',
     },
 
     textOption: {
+      fontSize: theme.light.font.sizes.text,
+      color:
+        currentTheme === 'light'
+          ? theme.light.colors.textColor
+          : theme.dark.colors.textColor,
+    },
+
+    button: {
+      width: '90%',
+      height: 44,
+      marginTop: 20,
+      marginHorizontal: 'auto',
+      borderRadius: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor:
+        currentTheme === 'light'
+          ? theme.light.colors.bgColorTwo
+          : theme.dark.colors.bgColorTwo,
+    },
+
+    buttonText: {
       fontSize: theme.light.font.sizes.text,
       color:
         currentTheme === 'light'
