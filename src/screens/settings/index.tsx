@@ -1,4 +1,5 @@
 import React from 'react';
+import Toast from 'react-native-toast-message';
 import { View, Text, Switch, Pressable } from 'react-native';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -20,6 +21,12 @@ export default function SettingsScreen() {
     await deleteAllTasks();
 
     queryClient.invalidateQueries({ queryKey: ['@tasks'] });
+
+    Toast.show({
+      type: 'success',
+      text1: 'Sucesso',
+      text2: 'Tarefas excluidas com sucesso.',
+    });
   };
 
   return (

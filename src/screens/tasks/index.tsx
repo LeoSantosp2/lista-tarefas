@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import uuid from 'react-native-uuid';
+import Toast from 'react-native-toast-message';
 import { View, Text, TextInput, FlatList, Pressable } from 'react-native';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -34,6 +35,12 @@ export default function TasksScreen() {
     setTask('');
 
     queryClient.invalidateQueries({ queryKey: ['@tasks'] });
+
+    Toast.show({
+      type: 'success',
+      text1: 'Sucesso',
+      text2: 'Tarefa adicionada com sucesso.',
+    });
   };
 
   const handleUpdateTask = async (task: TaskProps) => {
@@ -43,12 +50,24 @@ export default function TasksScreen() {
     setNewTask('');
 
     queryClient.invalidateQueries({ queryKey: ['@tasks'] });
+
+    Toast.show({
+      type: 'success',
+      text1: 'Sucesso',
+      text2: 'Tarefa atualizada com sucesso.',
+    });
   };
 
   const handleDeleteTask = async (id: string) => {
     await deleteTask(id);
 
     queryClient.invalidateQueries({ queryKey: ['@tasks'] });
+
+    Toast.show({
+      type: 'success',
+      text1: 'Sucesso',
+      text2: 'Tarefa excluida com sucesso.',
+    });
   };
 
   return (

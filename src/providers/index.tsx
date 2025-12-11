@@ -1,4 +1,5 @@
 import React from 'react';
+import Toast from 'react-native-toast-message';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { ThemeProvider } from '@/src/context/theme';
@@ -11,6 +12,8 @@ export default function Providers({ children }: ChildrenProps) {
   return (
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+
+      <Toast />
     </ThemeProvider>
   );
 }
