@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
 import uuid from 'react-native-uuid';
-import {
-  View,
-  Text,
-  TextInput,
-  FlatList,
-  Pressable,
-  useColorScheme,
-} from 'react-native';
+import { View, Text, TextInput, FlatList, Pressable } from 'react-native';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import SafeAreaScreenComponent from '@/src/components/safe-area-screen';
+
+import { useTheme } from '@/src/context/theme';
 
 import { getTasks, addTask, updatedTask, deleteTask } from '@/src/services/api';
 
@@ -24,9 +19,9 @@ export default function TasksScreen() {
   const [editTask, setEditTask] = useState('');
   const [newTask, setNewTask] = useState('');
 
-  const currentTheme = useColorScheme();
   const queryClient = useQueryClient();
 
+  const { currentTheme } = useTheme();
   const { styles } = useStyles(currentTheme);
   const { data } = useQuery({
     queryKey: ['@tasks'],

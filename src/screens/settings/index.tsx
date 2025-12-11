@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { View, Text, Switch, Pressable, useColorScheme } from 'react-native';
+import React from 'react';
+import { View, Text, Switch, Pressable } from 'react-native';
 import { useQueryClient } from '@tanstack/react-query';
 
 import SafeAreaScreenComponent from '@/src/components/safe-area-screen';
+
+import { useTheme } from '@/src/context/theme';
 
 import { deleteAllTasks } from '@/src/services/api';
 
 import { useStyles } from './styled';
 
 export default function SettingsScreen() {
-  const [togglSwitch, setToggleSwitch] = useState(false);
-
-  const currentTheme = useColorScheme();
   const queryClient = useQueryClient();
 
+  const { currentTheme, getTheme } = useTheme();
   const { styles } = useStyles(currentTheme);
 
   const handleDeleteAllTasks = async () => {
@@ -36,8 +36,11 @@ export default function SettingsScreen() {
 
               <View>
                 <Switch
-                  value={togglSwitch}
-                  onValueChange={() => setToggleSwitch(!togglSwitch)}
+                  value={currentTheme === 'light' ? false : true}
+                  onValueChange={() =>
+                    getTheme(currentTheme === 'light' ? 'dark' : 'light')
+                  }
+                  ios_backgroundColor="#ccc"
                 />
               </View>
             </View>

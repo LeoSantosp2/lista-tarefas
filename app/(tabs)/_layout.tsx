@@ -9,7 +9,7 @@ import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
 export default function TabLayout() {
   return (
-    <NativeTabs>
+    <NativeTabs tintColor="#34C759">
       <NativeTabs.Trigger name="index">
         <Label>Tarefas</Label>
         <Icon
