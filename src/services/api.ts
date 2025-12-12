@@ -76,7 +76,13 @@ export const deleteTask = async (id: string) => {
 
 export const deleteAllTasks = async () => {
   try {
-    await AsyncStorage.removeItem('@tasks');
+    const response = await AsyncStorage.getItem('@tasks');
+
+    const tasks: TaskProps[] = response ? JSON.parse(response) : [];
+
+    const newTasks = tasks.filter((task) => task.isCompleted === false);
+
+    await AsyncStorage.setItem('@tasks', JSON.stringify(newTasks));
   } catch (err) {
     if (err instanceof Error) {
       console.log('Erro ao deletar todas as tarefas:', err.message);
