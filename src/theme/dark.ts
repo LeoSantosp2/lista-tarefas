@@ -1,11 +1,12 @@
 export default {
   colors: {
-    bgColorOne: '#000000',
-    bgColorTwo: '#121212',
+    bgColorOne: '#0F0F0F',
+    bgColorTwo: '#1A1A1A',
     textColor: '#F2F2F2',
-    gray: '#ccc',
+    gray: '#7E7E7E',
+    blue: '#3A7AFE',
     red: '#F20530',
-    shadow: 'rgba(0, 0, 0, 0.5)',
+    shadow: 'rgba(0, 0, 0, 0.45)',
   },
 
   font: {

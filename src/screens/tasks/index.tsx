@@ -101,12 +101,12 @@ export default function TasksScreen() {
         <FlatList
           data={data}
           renderItem={({ item }) => (
-            <View style={styles.containerTask}>
+            <View style={[styles.containerTask, styles.shadow]}>
               <View style={styles.containerTaskUp}>
                 {item.isCompleted ? (
                   <MaterialIcons
                     name="check-circle"
-                    size={28}
+                    size={32}
                     color={styles.iconCheck.color}
                     onPress={() =>
                       handleUpdateTask({
@@ -119,7 +119,7 @@ export default function TasksScreen() {
                 ) : (
                   <MaterialIcons
                     name="radio-button-unchecked"
-                    size={28}
+                    size={32}
                     color={styles.iconCheck.color}
                     onPress={() =>
                       handleUpdateTask({
@@ -138,14 +138,26 @@ export default function TasksScreen() {
                     onChangeText={setNewTask}
                   />
                 ) : (
-                  <Text style={styles.textTask}>{item.task}</Text>
+                  <Text
+                    style={[
+                      styles.textTask,
+                      {
+                        textDecorationLine: item.isCompleted
+                          ? 'line-through'
+                          : 'none',
+                        opacity: item.isCompleted ? 0.5 : 1,
+                      },
+                    ]}
+                  >
+                    {item.task}
+                  </Text>
                 )}
               </View>
 
               <View style={styles.containerTaskDown}>
                 {editTask === item.id ? (
                   <Pressable
-                    style={styles.button}
+                    style={[styles.button, styles.buttonEdit]}
                     onPress={() =>
                       handleUpdateTask({
                         id: item.id,
@@ -162,8 +174,9 @@ export default function TasksScreen() {
                   </Pressable>
                 ) : (
                   <Pressable
-                    style={styles.button}
+                    style={[styles.button, styles.buttonEdit]}
                     onPress={() => setEditTask(item.id)}
+                    disabled={item.isCompleted ? true : false}
                   >
                     <MaterialIcons
                       name="edit"
@@ -175,7 +188,7 @@ export default function TasksScreen() {
 
                 {editTask === item.id ? (
                   <Pressable
-                    style={styles.button}
+                    style={[styles.button, styles.buttonDelete]}
                     onPress={() => setEditTask('')}
                   >
                     <MaterialIcons
@@ -186,7 +199,7 @@ export default function TasksScreen() {
                   </Pressable>
                 ) : (
                   <Pressable
-                    style={styles.button}
+                    style={[styles.button, styles.buttonDelete]}
                     onPress={() => handleDeleteTask(item.id)}
                   >
                     <MaterialIcons

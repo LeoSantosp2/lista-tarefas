@@ -26,10 +26,7 @@ export const useStyles = (currentTheme: ColorSchemeName) => {
     },
 
     iconPlus: {
-      color:
-        currentTheme === 'light'
-          ? theme.light.colors.textColor
-          : theme.dark.colors.textColor,
+      color: theme.light.colors.bgColorTwo,
     },
 
     containerInput: {
@@ -64,10 +61,7 @@ export const useStyles = (currentTheme: ColorSchemeName) => {
       borderRadius: 999,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor:
-        currentTheme === 'light'
-          ? theme.light.colors.bgColorTwo
-          : theme.dark.colors.bgColorTwo,
+      backgroundColor: theme.light.colors.blue,
     },
 
     containerStatus: {
@@ -106,10 +100,7 @@ export const useStyles = (currentTheme: ColorSchemeName) => {
     },
 
     iconCheck: {
-      color:
-        currentTheme === 'light'
-          ? theme.light.colors.textColor
-          : theme.dark.colors.textColor,
+      color: theme.light.colors.blue,
     },
 
     textTask: {
@@ -135,21 +126,22 @@ export const useStyles = (currentTheme: ColorSchemeName) => {
       borderRadius: 999,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor:
-        currentTheme === 'light'
-          ? theme.light.colors.bgColorOne
-          : theme.dark.colors.bgColorOne,
+    },
+
+    buttonEdit: {
+      backgroundColor: theme.light.colors.blue,
+    },
+
+    buttonDelete: {
+      backgroundColor: theme.light.colors.red,
     },
 
     iconEdit: {
-      color:
-        currentTheme === 'light'
-          ? theme.light.colors.textColor
-          : theme.dark.colors.textColor,
+      color: theme.light.colors.bgColorTwo,
     },
 
     iconTrash: {
-      color: theme.light.colors.red,
+      color: theme.light.colors.bgColorTwo,
     },
 
     inputEdit: {
@@ -171,7 +163,10 @@ export const useStyles = (currentTheme: ColorSchemeName) => {
 
     shadow: {
       shadowRadius: 10,
-      shadowColor: theme.dark.colors.bgColorOne,
+      shadowColor:
+        currentTheme === 'light'
+          ? theme.light.colors.shadow
+          : theme.dark.colors.shadow,
       shadowOpacity: 0.2,
       shadowOffset: {
         width: 0,

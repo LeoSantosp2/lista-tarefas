@@ -47,7 +47,8 @@ export default function SettingsScreen() {
                   onValueChange={() =>
                     getTheme(currentTheme === 'light' ? 'dark' : 'light')
                   }
-                  ios_backgroundColor="#ccc"
+                  ios_backgroundColor="#A5A5A5"
+                  trackColor={{ true: '#3A7AFE', false: '#A5A5A5' }}
                 />
               </View>
             </View>
