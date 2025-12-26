@@ -86,7 +86,11 @@ export default function TasksScreen() {
             style={styles.input}
           />
 
-          <Pressable style={styles.buttonAddTask} onPress={handleAddTask}>
+          <Pressable
+            testID="add-button"
+            style={styles.buttonAddTask}
+            onPress={handleAddTask}
+          >
             <AntDesign name="plus" size={28} color={styles.iconPlus.color} />
           </Pressable>
         </View>
@@ -174,6 +178,7 @@ export default function TasksScreen() {
                   </Pressable>
                 ) : (
                   <Pressable
+                    testID="edit-button"
                     style={[styles.button, styles.buttonEdit]}
                     onPress={() => setEditTask(item.id)}
                     disabled={item.isCompleted ? true : false}
@@ -199,6 +204,7 @@ export default function TasksScreen() {
                   </Pressable>
                 ) : (
                   <Pressable
+                    testID="delete-button"
                     style={[styles.button, styles.buttonDelete]}
                     onPress={() => handleDeleteTask(item.id)}
                   >

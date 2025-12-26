@@ -54,7 +54,11 @@ export default function SettingsScreen() {
             </View>
           </View>
 
-          <Pressable style={styles.button} onPress={handleDeleteAllTasks}>
+          <Pressable
+            testID="clear-finished"
+            style={styles.button}
+            onPress={handleDeleteAllTasks}
+          >
             <Text style={styles.buttonText}>Limpar Finalizados</Text>
           </Pressable>
         </View>
