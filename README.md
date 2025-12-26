@@ -13,10 +13,12 @@ I tool advantage of the update to test the design in an app i had previously dev
 ## Usage
 1. Clone the repository with following commando:
 ```bash
-gh repo clone LeoSantosp2/lista-tarefas
+git clone https://github.com/LeoSantosp2/lista-tarefas.git
+# or
+git clone https://github.com/LeoSantosp2/lista-tarefas.git .
 ```
 
-2. Install Package
+2. Install Packages
 ```bash
 npm i
 ```
